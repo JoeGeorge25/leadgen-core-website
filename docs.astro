@@ -1,0 +1,28 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+
+const dir = path.resolve(Astro.src, "../public/blueprints");
+let pdfs = [];
+if (fs.existsSync(dir)) {
+  pdfs = fs.readdirSync(dir).filter(f => f.endsWith(".pdf"));
+}
+---
+
+<html>
+  <head>
+    <title>📁 Technical Blueprints</title>
+  </head>
+  <body style="font-family: sans-serif; background: #0e0e10; color: #fff; padding: 40px;">
+    <h1>📄 LeadGen OS – Technical Blueprints</h1>
+    <p>Download the latest documentation and technical PDFs below:</p>
+    <ul>
+      {pdfs.map(pdf => (
+        <li style="margin: 12px 0;">
+          <strong>{pdf}</strong><br />
+          <a href={`/blueprints/${pdf}`} style="color:#00ff99;">⬇️ Download</a>
+        </li>
+      ))}
+    </ul>
+  </body>
+</html>
